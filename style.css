@@ -1,0 +1,288 @@
+:root {
+    --primary-bg: #0D1117;
+    --card-bg: #1E272C;
+    --primary-accent: #00C2B8;
+    --secondary-accent: #2E8C8D;
+    --text-light: #E0E0E0;
+    --text-dark-contrast: #FFFFFF;
+    --text-muted: #8B949E;
+    --border-color: #30363D;
+    --font-family: 'Poppins', sans-serif;
+
+    --status-done-bg: var(--primary-accent);
+    --status-done-text: var(--primary-bg);
+    --status-inprogress-bg: #F7D95B;
+    --status-inprogress-text: #3D2E00;
+    --status-notstarted-bg: #495057;
+    --status-notstarted-text: var(--text-light);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--primary-bg);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+header {
+    background: linear-gradient(90deg, rgba(13,17,23,0.95) 0%, rgba(22,27,34,0.98) 100%);
+    backdrop-filter: blur(5px);
+    color: var(--text-dark-contrast);
+    padding: 1rem 3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.company-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-accent);
+    letter-spacing: 1px;
+}
+
+main {
+    padding-top: 100px;
+}
+
+.page {
+    padding: 30px 3%;
+}
+
+.page-content {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark-contrast);
+    text-align: center;
+    margin-bottom: 40px;
+    background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: stretch; /* Ensure cards in a row stretch to match height */
+}
+
+.project-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Still useful for border-radius on children */
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; /* Added transform */
+    border-left: 4px solid transparent;
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; Removed, let content dictate height naturally with align-items: stretch on parent */
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+.project-card.status-overall-done {
+    border-left-color: var(--status-done-bg);
+}
+.project-card.status-overall-inprogress {
+    border-left-color: var(--status-inprogress-bg);
+}
+.project-card.status-overall-notstarted {
+    border-left-color: var(--status-notstarted-bg);
+}
+
+
+.project-summary {
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.03);
+    flex-grow: 1; /* Allow summary to take available vertical space */
+}
+
+.project-summary:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+.summary-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top for wrapped titles */
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Increased gap */
+    overflow: hidden; /* Still useful for child elements if they have fixed width */
+    flex-grow: 1; /* Allow project-info to take space */
+    margin-right: 10px; /* Space before toggle icon */
+}
+
+.project-name {
+    font-size: 1.1rem; /* Slightly increased for better readability when wrapped */
+    font-weight: 600;
+    color: var(--text-dark-contrast);
+    /* white-space: nowrap; REMOVED to allow wrapping */
+    /* overflow: hidden; REMOVED */
+    /* text-overflow: ellipsis; REMOVED */
+    line-height: 1.3; /* Adjust line height for wrapped text */
+    word-break: break-word; /* Ensure long words break */
+}
+
+.status-pill {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 4px 12px; /* Slightly larger pill */
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* ... (status pill color styles remain the same) ... */
+.status-pill.status-done { background-color: var(--status-done-bg); color: var(--status-done-text); }
+.status-pill.status-inprogress { background-color: var(--status-inprogress-bg); color: var(--status-inprogress-text); }
+.status-pill.status-notstarted { background-color: var(--status-notstarted-bg); color: var(--status-notstarted-text); }
+
+
+.toggle-details {
+    font-size: 1rem;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    padding-top: 2px; /* Align better with first line of wrapped title */
+}
+
+.project-objective-summary {
+    font-size: 0.85rem; /* Slightly larger */
+    color: var(--text-muted);
+    line-height: 1.5; /* Increased line height for readability */
+    margin-bottom: 5px;
+    /* REMOVED line clamp to show full description */
+    /* display: -webkit-box; */
+    /* -webkit-line-clamp: 2; */
+    /* -webkit-box-orient: vertical; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    /* min-height: calc(1.4em * 2); */
+    word-break: break-word; /* Help with long words in description */
+}
+
+
+.project-card.expanded .toggle-details {
+    transform: rotate(180deg);
+}
+
+.project-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    padding: 0 20px;
+    background-color: var(--card-bg);
+}
+
+.project-card.expanded .project-details {
+    max-height: 400px;
+    padding: 10px 20px 15px 20px;
+    border-top: 1px solid var(--border-color);
+    overflow-y: auto;
+}
+
+.actions-list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 5px;
+}
+
+.actions-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    padding: 6px 0;
+    color: var(--text-muted);
+    border-bottom: 1px dashed rgba(var(--border-color), 0.4);
+}
+.actions-list li:last-child {
+    border-bottom: none;
+}
+
+.actions-list li span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 5px;
+}
+
+
+.action-status-pill {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    margin-left: auto;
+    min-width: 70px;
+    text-align: center;
+    flex-shrink: 0;
+}
+/* ... (action status pill color styles remain the same) ... */
+.action-status-pill.status-done { background-color: var(--status-done-bg); color: var(--status-done-text); }
+.action-status-pill.status-inprogress { background-color: var(--status-inprogress-bg); color: var(--status-inprogress-text); }
+.action-status-pill.status-notstarted { background-color: var(--status-notstarted-bg); color: var(--status-notstarted-text); }
+
+
+/* Responsive Adjustments */
+@media (max-width: 1300px) {
+    .projects-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .projects-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .project-name {
+        font-size: 1rem; /* Adjust if needed for 2 columns */
+    }
+}
+
+@media (max-width: 600px) {
+    .projects-container {
+        grid-template-columns: 1fr;
+    }
+     .main-title {
+        font-size: 2rem;
+    }
+    .company-name {
+        font-size: 1.5rem;
+    }
+}
